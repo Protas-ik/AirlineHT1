@@ -1,6 +1,8 @@
 package services;
 
 import domain.Airline;
+import domain.exeption.AppException;
+import domain.exeption.Messages;
 import domain.plane.Plane;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -16,7 +18,7 @@ public class AirlineService<plane> {
     public AirlineService(){
     }
 
-    public void addPlane(Airline airline, Plane plane){
+    public void addPlane(Airline airline, Plane plane) {
         if(plane == null){
             LOG.warn("plane is null");
             throw new NullPointerException("plane is null");
@@ -29,33 +31,36 @@ public class AirlineService<plane> {
         commonService.add(airline.getPlanes(),plane);
     }
 
-    public double weightOfAirline(Airline airline){
-        if (airline == null) {
+    public double weightOfAirline(Airline airline) throws AppException {
+        try{
+            PlaneService planeService = new PlaneService();
+            double weightOfAirline = planeService.weightOfAirline(airline.getPlanes());
+            return weightOfAirline;
+        } catch ( Exception e){
             LOG.warn("Airline is null");
-            throw new NullPointerException("Airline is null");
+            throw new AppException(Messages.ERR_CANNOT_TAKE_AIRLANE,e);
         }
-        PlaneService planeService = new PlaneService();
-        double weightOfAirline = planeService.weightOfAirline(airline.getPlanes());
-        return weightOfAirline;
     }
 
-    public int capacityOfAirline(Airline airline){
-        if (airline == null) {
+    public int capacityOfAirline(Airline airline) throws AppException {
+        try{
+            PlaneService planeService = new PlaneService();
+            int capacityOfAirline = planeService.capacityOfAirline(airline.getPlanes());
+            return capacityOfAirline;
+        } catch ( Exception e){
             LOG.warn("Airline is null");
-            throw new NullPointerException("Airline is null");
+            throw new AppException(Messages.ERR_CANNOT_TAKE_AIRLANE,e);
         }
-        PlaneService planeService = new PlaneService();
-        int capacityOfAirline = planeService.capacityOfAirline(airline.getPlanes());
-        return capacityOfAirline;
     }
 
-    public void sortPlane(Airline airline, Comparator<Plane> comparator){
-        if (airline == null) {
+    public void sortPlane(Airline airline, Comparator<Plane> comparator) throws AppException{
+        try{
+            CommonService commonService = new CommonService();
+            commonService.sort(airline.getPlanes(), comparator);
+        } catch ( Exception e){
             LOG.warn("Airline is null");
-            throw new NullPointerException("Airline is null");
+            throw new AppException(Messages.ERR_CANNOT_TAKE_AIRLANE,e);
         }
-        CommonService commonService = new CommonService();
-        commonService.sort(airline.getPlanes(), comparator);
     }
 
     public List<Plane> findPlaneByFuelConsumption(Airline airline, Double minFuelConsumption, Double maxFuelConsumption){

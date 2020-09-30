@@ -29,9 +29,10 @@ public class Main {
         Passenger passenger2 = new Passenger(1000.5,400,2,400,
                 150.5,"PROTASIK2", TypeOfPassengerPlane.PREMIUM);
         Airline airline = new Airline();
+        double weight = airlineService.weightOfAirline(airline);
         airline.planes.add(passenger1);
         airline.planes.add(passenger2);
-        double weight = airlineService.weightOfAirline(airline);
+        //double weight = airlineService.weightOfAirline(airline);
         int capacity = airlineService.capacityOfAirline(airline);
         Comparator<Plane> comparator = new ComparePlaneByRangeOfFlight();
         airlineService.sortPlane(airline,comparator);

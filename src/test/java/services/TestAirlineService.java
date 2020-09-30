@@ -12,7 +12,7 @@ import services.plane.comporator.ComparePlaneByRangeOfFlight;
 import java.util.Comparator;
 import java.util.List;
 
-public class TestAirlineService {
+public class    TestAirlineService {
 
     private static Airline airline;
     private static AirlineService airlineService;
