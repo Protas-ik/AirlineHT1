@@ -18,7 +18,7 @@ public class AirlineService<plane> {
     public AirlineService(){
     }
 
-    public void addPlane(Airline airline, Plane plane) {
+    public void addPlane(Airline airline, Plane plane)  throws AppException {
         if(plane == null){
             LOG.warn("plane is null");
             throw new NullPointerException("plane is null");
